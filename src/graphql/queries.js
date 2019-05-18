@@ -5,6 +5,14 @@ export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -17,6 +25,9 @@ export const listUsers = `query ListUsers(
     items {
       id
       email
+      todos {
+        nextToken
+      }
     }
     nextToken
   }
@@ -25,12 +36,14 @@ export const listUsers = `query ListUsers(
 export const getTodo = `query GetTodo($id: ID!) {
   getTodo(id: $id) {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
+      todos {
+        nextToken
+      }
     }
   }
 }
@@ -43,48 +56,12 @@ export const listTodos = `query ListTodos(
   listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
-      name
       description
       status
-      user {
+      owner {
         id
         email
       }
-    }
-    nextToken
-  }
-}
-`;
-export const getTodoConnection = `query GetTodoConnection($id: ID!) {
-  getTodoConnection(id: $id) {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const listTodoConnections = `query ListTodoConnections(
-  $filter: ModelTodoConnectionFilterInput
-  $limit: Int
-  $nextToken: String
-) {
-  listTodoConnections(filter: $filter, limit: $limit, nextToken: $nextToken) {
-    items {
-      todos {
-        id
-        name
-        description
-        status
-      }
-      nextToken
     }
     nextToken
   }

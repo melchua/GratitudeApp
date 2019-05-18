@@ -18,6 +18,8 @@ import SignInScreen from "./src/screens/SignInScreen";
 import ConfirmScreen from "./src/screens/ConfirmScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import AppHomeScreen from "./src/screens/AppHomeScreen";
+import CreateTodoScreen from "./src/screens/CreateTodoScreen";
+
 import AuthLoadingScreen from "./src/screens/AuthLoadingScreen";
 
 // Imports for store setup
@@ -27,10 +29,22 @@ import RootStoreModel from "./src/stores/root-store";
 Amplify.configure(awsmobile);
 
 // configuring stacks
-const AppStack = createStackNavigator(
+const MainStack = createStackNavigator(
   { AppHome: AppHomeScreen },
   { initialRouteName: "AppHome" }
 ); // switch to the app screen when we have one ready
+
+const AppStack = createStackNavigator(
+  {
+    Main: MainStack,
+    CreateTodo: CreateTodoScreen
+  },
+  {
+    mode: "modal",
+    headerMode: "none"
+  }
+);
+
 const AuthStack = createStackNavigator(
   {
     Home: HomeScreen,
@@ -58,7 +72,8 @@ class App extends Component {
     // Prep stores for provider
     const stores = {
       rootStore: rootStore,
-      authStore: rootStore.authStore
+      authStore: rootStore.authStore,
+      todoStore: rootStore.todoStore
     };
 
     return (

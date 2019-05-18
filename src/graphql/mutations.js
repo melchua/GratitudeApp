@@ -5,6 +5,14 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -12,6 +20,14 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -19,18 +35,28 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
   deleteUser(input: $input) {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
 export const createTodo = `mutation CreateTodo($input: CreateTodoInput!) {
   createTodo(input: $input) {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
+      todos {
+        nextToken
+      }
     }
   }
 }
@@ -38,12 +64,14 @@ export const createTodo = `mutation CreateTodo($input: CreateTodoInput!) {
 export const updateTodo = `mutation UpdateTodo($input: UpdateTodoInput!) {
   updateTodo(input: $input) {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
+      todos {
+        nextToken
+      }
     }
   }
 }
@@ -51,61 +79,15 @@ export const updateTodo = `mutation UpdateTodo($input: UpdateTodoInput!) {
 export const deleteTodo = `mutation DeleteTodo($input: DeleteTodoInput!) {
   deleteTodo(input: $input) {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
-    }
-  }
-}
-`;
-export const createTodoConnection = `mutation CreateTodoConnection($input: CreateTodoConnectionInput!) {
-  createTodoConnection(input: $input) {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
+      todos {
+        nextToken
       }
     }
-    nextToken
-  }
-}
-`;
-export const updateTodoConnection = `mutation UpdateTodoConnection($input: UpdateTodoConnectionInput!) {
-  updateTodoConnection(input: $input) {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const deleteTodoConnection = `mutation DeleteTodoConnection($input: DeleteTodoConnectionInput!) {
-  deleteTodoConnection(input: $input) {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
-      }
-    }
-    nextToken
   }
 }
 `;

@@ -5,6 +5,14 @@ export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -12,6 +20,14 @@ export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
@@ -19,18 +35,28 @@ export const onDeleteUser = `subscription OnDeleteUser {
   onDeleteUser {
     id
     email
+    todos {
+      items {
+        id
+        description
+        status
+      }
+      nextToken
+    }
   }
 }
 `;
 export const onCreateTodo = `subscription OnCreateTodo {
   onCreateTodo {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
+      todos {
+        nextToken
+      }
     }
   }
 }
@@ -38,12 +64,14 @@ export const onCreateTodo = `subscription OnCreateTodo {
 export const onUpdateTodo = `subscription OnUpdateTodo {
   onUpdateTodo {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
+      todos {
+        nextToken
+      }
     }
   }
 }
@@ -51,61 +79,15 @@ export const onUpdateTodo = `subscription OnUpdateTodo {
 export const onDeleteTodo = `subscription OnDeleteTodo {
   onDeleteTodo {
     id
-    name
     description
     status
-    user {
+    owner {
       id
       email
-    }
-  }
-}
-`;
-export const onCreateTodoConnection = `subscription OnCreateTodoConnection {
-  onCreateTodoConnection {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
+      todos {
+        nextToken
       }
     }
-    nextToken
-  }
-}
-`;
-export const onUpdateTodoConnection = `subscription OnUpdateTodoConnection {
-  onUpdateTodoConnection {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
-      }
-    }
-    nextToken
-  }
-}
-`;
-export const onDeleteTodoConnection = `subscription OnDeleteTodoConnection {
-  onDeleteTodoConnection {
-    todos {
-      id
-      name
-      description
-      status
-      user {
-        id
-        email
-      }
-    }
-    nextToken
   }
 }
 `;
