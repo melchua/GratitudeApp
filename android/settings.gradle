@@ -1,0 +1,3 @@
+rootProject.name = 'GratitudeApp'
+
+include ':app'
