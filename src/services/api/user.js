@@ -1,5 +1,5 @@
-import * as queries from "../../../graphql/queries";
-import * as mutations from "../../../graphql/mutations";
+import * as queries from "../../../src/graphql/queries";
+import * as mutations from "../../../src/graphql/mutations";
 // import * as subscriptions from "../graphql/subscriptions";
 import { API, graphqlOperation } from "aws-amplify";
 
@@ -32,9 +32,26 @@ const getUser = async id => {
   }
 };
 
+const createTodo = async (id, description) => {
+  const todoDetails = {
+    id,
+    description
+  };
+  try {
+    const newTodo = await API.graphql(
+      graphqlOperation(mutations.createTodo, { input: todoDetails })
+    );
+    console.warn("newTodo", newTodo);
+    // return newTodo;
+  } catch (error) {
+    console.warn("Error createTodo: ", error);
+  }
+};
+
 const UserActions = {
   createUser,
-  getUser
+  getUser,
+  createTodo
 };
 
 export default UserActions;

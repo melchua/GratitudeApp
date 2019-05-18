@@ -16,10 +16,14 @@ class HomeScreen extends Component {
     this.props.navigation.navigate("SignIn");
   };
 
+  handleOpenTodoModal = () => {
+    this.props.navigation.navigate("CreateTodo");
+  };
+
   render() {
     return (
       <View style={styles.homescreenContainer}>
-        <Image source={grasshopper} style={styles.grasshopperImage} />
+        {/* <Image source={grasshopper} style={styles.grasshopperImage} /> */}
         <Text>This is the protected app screen</Text>
 
         <View style={styles.inputContainer}>
@@ -30,12 +34,21 @@ class HomeScreen extends Component {
             <Text style={styles.logoutButtonText}>Logout</Text>
           </TouchableOpacity>
         </View>
+
+        <View style={styles.inputContainer}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => this.handleOpenTodoModal()}
+          >
+            <Text style={styles.logoutButtonText}>Create Note</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
-export default inject("authStore")(observer(HomeScreen));
+export default inject("authStore", "todoStore")(observer(HomeScreen));
 
 const styles = StyleSheet.create({
   homescreenContainer: {
