@@ -1,0 +1,19 @@
+{
+    "dev": {
+        "awscloudformation": {
+            "AuthRoleName": "gratitudeapp-dev-20190518011539-authRole",
+            "UnauthRoleArn": "arn:aws:iam::401355635446:role/gratitudeapp-dev-20190518011539-unauthRole",
+            "AuthRoleArn": "arn:aws:iam::401355635446:role/gratitudeapp-dev-20190518011539-authRole",
+            "Region": "us-west-2",
+            "DeploymentBucketName": "gratitudeapp-dev-20190518011539-deployment",
+            "UnauthRoleName": "gratitudeapp-dev-20190518011539-unauthRole",
+            "StackName": "gratitudeapp-dev-20190518011539",
+            "StackId": "arn:aws:cloudformation:us-west-2:401355635446:stack/gratitudeapp-dev-20190518011539/22a258c0-7945-11e9-8f17-02a37d7e05c4"
+        },
+        "categories": {
+            "auth": {
+                "cognitod2e8db5c": {}
+            }
+        }
+    }
+}
