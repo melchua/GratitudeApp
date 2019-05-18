@@ -30,6 +30,7 @@ const resendSignUp = username => {
 
 const signIn = (username, password) => {
   const user = Auth.signIn(username, password);
+  console.warn("this is the user", user);
   return user;
 };
 

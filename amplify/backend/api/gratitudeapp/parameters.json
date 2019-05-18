@@ -1,0 +1,10 @@
+{
+    "AppSyncApiName": "gratitudeapp",
+    "DynamoDBBillingMode": "PAY_PER_REQUEST",
+    "AuthCognitoUserPoolId": {
+        "Fn::GetAtt": [
+            "authcognitod2e8db5c",
+            "Outputs.UserPoolId"
+        ]
+    }
+}
