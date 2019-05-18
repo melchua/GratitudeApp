@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import {
-  Image,
   Platform,
   StyleSheet,
   Text,
@@ -8,7 +7,6 @@ import {
   View
 } from "react-native";
 import { inject, observer } from "mobx-react";
-import grasshopper from "../../assets/images/grasshopper.png";
 
 class HomeScreen extends Component {
   handleLogout = () => {
@@ -17,13 +15,12 @@ class HomeScreen extends Component {
   };
 
   handleOpenTodoModal = () => {
-    this.props.navigation.navigate("CreateTodo");
+    this.props.navigation.navigate("CreateGratitude");
   };
 
   render() {
     return (
       <View style={styles.homescreenContainer}>
-        {/* <Image source={grasshopper} style={styles.grasshopperImage} /> */}
         <Text>This is the protected app screen</Text>
 
         <View style={styles.inputContainer}>
@@ -48,7 +45,7 @@ class HomeScreen extends Component {
   }
 }
 
-export default inject("authStore", "todoStore")(observer(HomeScreen));
+export default inject("authStore", "gratitudeStore")(observer(HomeScreen));
 
 const styles = StyleSheet.create({
   homescreenContainer: {

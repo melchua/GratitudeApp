@@ -32,26 +32,30 @@ const getUser = async id => {
   }
 };
 
-const createTodo = async (id, description) => {
-  const todoDetails = {
+const createGratitude = async (id, description) => {
+  let today = new Date();
+  today = String(today);
+  const gratitudeDetails = {
     id,
-    description
+    description,
+    createdOn: today
   };
+
+  console.warn("gratitude details:", gratitudeDetails);
   try {
-    const newTodo = await API.graphql(
-      graphqlOperation(mutations.createTodo, { input: todoDetails })
+    const newGratitude = await API.graphql(
+      graphqlOperation(mutations.createGratitude, { input: gratitudeDetails })
     );
-    console.warn("newTodo", newTodo);
-    // return newTodo;
+    console.warn("newGratitude", newGratitude);
   } catch (error) {
-    console.warn("Error createTodo: ", error);
+    console.warn("Error createGratitude: ", error);
   }
 };
 
 const UserActions = {
   createUser,
   getUser,
-  createTodo
+  createGratitude
 };
 
 export default UserActions;

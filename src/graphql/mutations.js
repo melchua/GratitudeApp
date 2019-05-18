@@ -5,14 +5,15 @@ export const createUser = `mutation CreateUser($input: CreateUserInput!) {
   createUser(input: $input) {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
@@ -20,14 +21,15 @@ export const updateUser = `mutation UpdateUser($input: UpdateUserInput!) {
   updateUser(input: $input) {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
@@ -35,58 +37,62 @@ export const deleteUser = `mutation DeleteUser($input: DeleteUserInput!) {
   deleteUser(input: $input) {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
-export const createTodo = `mutation CreateTodo($input: CreateTodoInput!) {
-  createTodo(input: $input) {
+export const createGratitude = `mutation CreateGratitude($input: CreateGratitudeInput!) {
+  createGratitude(input: $input) {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }
 `;
-export const updateTodo = `mutation UpdateTodo($input: UpdateTodoInput!) {
-  updateTodo(input: $input) {
+export const updateGratitude = `mutation UpdateGratitude($input: UpdateGratitudeInput!) {
+  updateGratitude(input: $input) {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }
 `;
-export const deleteTodo = `mutation DeleteTodo($input: DeleteTodoInput!) {
-  deleteTodo(input: $input) {
+export const deleteGratitude = `mutation DeleteGratitude($input: DeleteGratitudeInput!) {
+  deleteGratitude(input: $input) {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }

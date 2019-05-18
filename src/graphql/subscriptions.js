@@ -5,14 +5,15 @@ export const onCreateUser = `subscription OnCreateUser {
   onCreateUser {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
@@ -20,14 +21,15 @@ export const onUpdateUser = `subscription OnUpdateUser {
   onUpdateUser {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
@@ -35,58 +37,62 @@ export const onDeleteUser = `subscription OnDeleteUser {
   onDeleteUser {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
-export const onCreateTodo = `subscription OnCreateTodo {
-  onCreateTodo {
+export const onCreateGratitude = `subscription OnCreateGratitude {
+  onCreateGratitude {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }
 `;
-export const onUpdateTodo = `subscription OnUpdateTodo {
-  onUpdateTodo {
+export const onUpdateGratitude = `subscription OnUpdateGratitude {
+  onUpdateGratitude {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }
 `;
-export const onDeleteTodo = `subscription OnDeleteTodo {
-  onDeleteTodo {
+export const onDeleteGratitude = `subscription OnDeleteGratitude {
+  onDeleteGratitude {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }

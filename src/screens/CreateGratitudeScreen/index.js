@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { inject, observer } from "mobx-react";
 
-class CreateTodoScreen extends Component {
+class CreateGratitudeScreen extends Component {
   render() {
     return (
       <SafeAreaView style={styles.homescreenContainer}>
@@ -25,7 +25,7 @@ class CreateTodoScreen extends Component {
   }
 }
 
-export default inject("todoStore")(observer(CreateTodoScreen));
+export default inject("gratitudeStore")(observer(CreateGratitudeScreen));
 
 const styles = StyleSheet.create({
   homescreenContainer: {

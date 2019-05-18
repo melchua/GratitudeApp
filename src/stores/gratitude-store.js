@@ -1,18 +1,18 @@
 import { flow, types } from "mobx-state-tree";
 import UserApi from "../services/api/user";
 
-const TodoStoreModel = types
+const GratitudeStoreModel = types
   .model("Todo", {
-    isCreeatingTodo: types.optional(types.boolean, true)
+    isCreeatingGratitude: types.optional(types.boolean, true)
   })
   .actions(self => {
     return {
       afterCreate() {
         // self.checkIfLoggedIn();
       },
-      createTodo: flow(function*(id = null, description = "Placeholder") {
+      createGratitude: flow(function*(id = null, description = "Placeholder") {
         try {
-          const response = yield UserApi.createTodo(id, description);
+          const response = yield UserApi.createGratitude(id, description);
           return response && true;
         } catch (error) {
           return error;
@@ -20,4 +20,4 @@ const TodoStoreModel = types
       })
     };
   });
-export default TodoStoreModel;
+export default GratitudeStoreModel;

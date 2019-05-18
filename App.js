@@ -18,7 +18,7 @@ import SignInScreen from "./src/screens/SignInScreen";
 import ConfirmScreen from "./src/screens/ConfirmScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import AppHomeScreen from "./src/screens/AppHomeScreen";
-import CreateTodoScreen from "./src/screens/CreateTodoScreen";
+import CreateGratitudeScreen from "./src/screens/CreateGratitudeScreen";
 
 import AuthLoadingScreen from "./src/screens/AuthLoadingScreen";
 
@@ -37,7 +37,7 @@ const MainStack = createStackNavigator(
 const AppStack = createStackNavigator(
   {
     Main: MainStack,
-    CreateTodo: CreateTodoScreen
+    CreateGratitude: CreateGratitudeScreen
   },
   {
     mode: "modal",
@@ -73,7 +73,7 @@ class App extends Component {
     const stores = {
       rootStore: rootStore,
       authStore: rootStore.authStore,
-      todoStore: rootStore.todoStore
+      gratitudeStore: rootStore.gratitudeStore
     };
 
     return (
