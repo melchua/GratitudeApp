@@ -1,19 +1,15 @@
 type User @model {
   id: ID!
   email: String
+  todos: [Todo] @connection(name: "UserTodos")
 }
 
 type Todo @model {
   id: ID!
-  name: String
   description: String
   status: TodoStatus
-  user: User
-}
-
-type TodoConnection @model {
-  todos: [Todo]
-  nextToken: String
+  # createdAt: new Date().toISOString()
+  owner: User! @connection(name: "UserTodos")
 }
 
 enum TodoStatus {
