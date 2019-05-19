@@ -7,46 +7,74 @@ import {
   Text,
   View,
   Dimensions,
-  ScrollView,
-  TextInput,
-  AppRegistry
+  ScrollView
 } from 'react-native';
-import moment from 'moment';
+
+const fakeData = [
+  {
+    date: 'Tuesday, November 30',
+    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
+  },
+  {
+    date: 'Sunday, October 12',
+    gratitude:
+      'Coding in front of the water with awesome food.  Living close to the beach'
+  },
+  {
+    date: 'Thursday, October 2',
+    gratitude: 'Docking with my homies '
+  },
+  {
+    date: 'Tuesday, November 20',
+    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
+  },
+  {
+    date: 'Sunday, October 12',
+    gratitude:
+      'Coding in front of the water with awesome food.  Living close to the beach'
+  },
+  {
+    date: 'Thursday, October 2',
+    gratitude: 'Docking with my homies '
+  },
+  {
+    date: 'Tuesday, November 20',
+    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
+  },
+  {
+    date: 'Sunday, October 12',
+    gratitude:
+      'Coding in front of the water with awesome food.  Living close to the beach'
+  },
+  {
+    date: 'Thursday, October 2',
+    gratitude: 'Docking with my homies'
+  }
+];
 
 export default class ListScreen extends Component {
-  state = { text: '' };
+  componentDidMount() {}
   render() {
+    const { navigation } = this.props;
+    const gratitudes = fakeData.map((data, index) => (
+      <View style={styles.gratitudeContainer} key={index}>
+        <View style={styles.titleLineBreak} />
+        <View>
+          <Text style={styles.gratitudeDate}>{data.date}</Text>
+        </View>
+        <View style={styles.gratitudeContainer}>
+          <Text style={styles.gratitude}>{data.gratitude}</Text>
+        </View>
+      </View>
+    ));
     return (
       <View style={styles.layout}>
         <ScrollView>
           <View style={styles.homescreenContainer}>
             <View style={styles.titleContainer}>
-              <Text style={styles.title}>NEW GRATITUDE</Text>
+              <Text style={styles.title}>GRATITUDES</Text>
             </View>
-            <View style={styles.gratitudeContainer}>
-              <View style={styles.titleLineBreak} />
-              <View>
-                <Text style={styles.gratitudeDate}>
-                  {moment(new Date()).format('dddd, MMM Do')}
-                </Text>
-              </View>
-              <View style={styles.gratitudeContainer}>
-                <Text style={styles.describe}>
-                  In 30 characters or less, describe what you are grateful for
-                  today.
-                </Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                onChangeText={text => this.setState({ text })}
-                value={this.state.text}
-                placeholder='Today I am grateful for...'
-                multiline={true}
-              />
-            </View>
-            <View style={styles.submitContainer}>
-              <Text style={styles.submit}>SUBMIT</Text>
-            </View>
+            {gratitudes}
           </View>
         </ScrollView>
         <View style={styles.footer}>
@@ -101,43 +129,21 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     width: '95%'
   },
-  describe: {
+  gratitude: {
     marginTop: 20,
+    // width: 350,
     fontFamily: 'times new roman',
     fontSize: 20,
+    fontStyle: 'italic',
     textAlign: 'center',
     opacity: 0.9,
     backgroundColor: '#f7f4e9'
   },
-  input: {
-    marginTop: 20,
-    height: 200,
-    width: '90%',
-    borderColor: 'black',
-    borderWidth: 1,
-    backgroundColor: 'white',
-    fontSize: 20,
-    paddingLeft: 15,
-    paddingTop: 15,
-    fontStyle: 'italic',
-    textAlign: 'justify'
-  },
   addGratitude: {
     fontSize: 60
   },
-  submitContainer: {
-    width: width,
-    alignItems: 'center',
-    fontFamily: 'helvetica'
-  },
-  submit: {
-    fontSize: 20,
-    letterSpacing: 4,
-    fontWeight: '600',
-    marginTop: 30,
-    opacity: 0.7
-  },
   footer: {
+    // height: 50,
     bottom: 30,
     alignSelf: 'center'
   }

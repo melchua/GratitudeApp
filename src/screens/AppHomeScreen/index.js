@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Image,
   Platform,
@@ -6,18 +6,22 @@ import {
   Text,
   TouchableOpacity,
   View
-} from "react-native";
-import { inject, observer } from "mobx-react";
-import grasshopper from "../../assets/images/grasshopper.png";
+} from 'react-native';
+import { inject, observer } from 'mobx-react';
+import grasshopper from '../../assets/images/grasshopper.png';
 
 class HomeScreen extends Component {
   handleLogout = () => {
     this.props.authStore.signOut();
-    this.props.navigation.navigate("SignIn");
+    this.props.navigation.navigate('SignIn');
   };
 
   handleOpenTodoModal = () => {
-    this.props.navigation.navigate("CreateTodo");
+    this.props.navigation.navigate('CreateTodo');
+  };
+
+  handleOpenList = () => {
+    this.props.navigation.navigate('List');
   };
 
   render() {
@@ -43,18 +47,27 @@ class HomeScreen extends Component {
             <Text style={styles.logoutButtonText}>Create Note</Text>
           </TouchableOpacity>
         </View>
+
+        <View style={styles.inputContainer}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => this.handleOpenList()}
+          >
+            <Text style={styles.logoutButtonText}>Open List</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     );
   }
 }
 
-export default inject("authStore", "todoStore")(observer(HomeScreen));
+export default inject('authStore', 'todoStore')(observer(HomeScreen));
 
 const styles = StyleSheet.create({
   homescreenContainer: {
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center"
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   grasshopperImage: {
     width: 150,
@@ -65,21 +78,21 @@ const styles = StyleSheet.create({
     paddingTop: 15
   },
   inputLabel: {
-    color: "white",
+    color: 'white',
     fontSize: 16
   },
   logoutButton: {
     borderWidth: 1,
-    borderColor: "transparent",
-    backgroundColor: "transparent",
+    borderColor: 'transparent',
+    backgroundColor: 'transparent',
     padding: 15,
     margin: 5
   },
   logoutButtonText: {
-    color: "#000000",
+    color: '#000000',
     fontSize: 70,
-    textAlign: "center",
-    textTransform: "uppercase",
-    fontWeight: "700"
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    fontWeight: '700'
   }
 });

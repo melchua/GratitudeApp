@@ -5,43 +5,45 @@
  * @format
  * @flow
  */
-import React, { Component } from "react";
-import awsmobile from "./aws-exports";
-import Amplify from "aws-amplify";
+import React, { Component } from 'react';
+import awsmobile from './aws-exports.js';
+import Amplify from 'aws-amplify';
 import {
   createAppContainer,
   createStackNavigator,
   createSwitchNavigator
-} from "react-navigation";
-import SignUpScreen from "./src/screens/SignUpScreen";
-import SignInScreen from "./src/screens/SignInScreen";
-import ConfirmScreen from "./src/screens/ConfirmScreen";
-import HomeScreen from "./src/screens/HomeScreen";
-import AppHomeScreen from "./src/screens/AppHomeScreen";
-import CreateTodoScreen from "./src/screens/CreateTodoScreen";
+} from 'react-navigation';
+import SignUpScreen from './src/screens/SignUpScreen';
+import SignInScreen from './src/screens/SignInScreen';
+import ConfirmScreen from './src/screens/ConfirmScreen';
+import HomeScreen from './src/screens/HomeScreen';
+import AppHomeScreen from './src/screens/AppHomeScreen';
+import CreateTodoScreen from './src/screens/CreateTodoScreen';
+import ListScreen from './src/screens/ListScreen';
 
-import AuthLoadingScreen from "./src/screens/AuthLoadingScreen";
+import AuthLoadingScreen from './src/screens/AuthLoadingScreen';
 
 // Imports for store setup
-import { Provider } from "mobx-react";
-import RootStoreModel from "./src/stores/root-store";
+import { Provider } from 'mobx-react';
+import RootStoreModel from './src/stores/root-store';
 
 Amplify.configure(awsmobile);
 
 // configuring stacks
 const MainStack = createStackNavigator(
   { AppHome: AppHomeScreen },
-  { initialRouteName: "AppHome" }
+  { initialRouteName: 'AppHome' }
 ); // switch to the app screen when we have one ready
 
 const AppStack = createStackNavigator(
   {
     Main: MainStack,
-    CreateTodo: CreateTodoScreen
+    CreateTodo: CreateTodoScreen,
+    List: ListScreen
   },
   {
-    mode: "modal",
-    headerMode: "none"
+    mode: 'modal',
+    headerMode: 'none'
   }
 );
 
@@ -52,7 +54,7 @@ const AuthStack = createStackNavigator(
     SignIn: SignInScreen,
     Confirm: ConfirmScreen
   },
-  { initialRouteName: "SignIn" }
+  { initialRouteName: 'SignIn' }
 );
 
 class App extends Component {
@@ -92,7 +94,7 @@ const AppNavContainer = createAppContainer(
       App: AppStack
     },
     {
-      initialRouteName: "AuthLoading"
+      initialRouteName: 'App'
     }
   )
 );
