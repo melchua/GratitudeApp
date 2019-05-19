@@ -37,7 +37,6 @@ export default class ListScreen extends Component {
                 </Text>
               </View>
               <TextInput
-                {...this.props}
                 style={styles.input}
                 onChangeText={text => this.setState({ text })}
                 value={this.state.text}
