@@ -165,8 +165,9 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     fontSize: 25,
-    color: "darkgreen",
-    fontWeight: "400"
+    color: "black",
+    fontWeight: "400",
+    opacity: 0.7
   },
   //   mainContainer: {
   //     backgroundColor: "#8ddb39"
@@ -176,27 +177,31 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   errorText: {
-    fontStyle: "italic"
+    fontStyle: "italic",
+    opacity: 0.5
   },
   inputContainer: {
     paddingTop: 15
   },
   inputLabel: {
-    color: "white",
+    color: "black",
     fontSize: 16
   },
   signUpButton: {
     borderWidth: 1,
     borderColor: "transparent",
     backgroundColor: "transparent",
-    padding: 15,
+    paddingBottom: 20,
+    paddingTop: 5,
     margin: 5
   },
   signUpButtonText: {
-    color: "#FFFFFF",
-    fontSize: 70,
+    color: "black",
+    fontSize: 30,
+    opacity: 0.6,
     textAlign: "center",
     textTransform: "uppercase",
-    fontWeight: "700"
+    fontWeight: "300",
+    fontFamily: 'helvetica'
   }
 });

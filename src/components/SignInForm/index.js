@@ -83,10 +83,6 @@ class SignInForm extends Component {
     return (
       <View style={styles.mainContainer}>
         <View>
-          <View style={styles.titleContainer}>
-              <Text style={styles.title}>GRATEFUL GRASSHOPPER</Text>
-          </View>
-          <View style={styles.titleLineBreak} />
           <Text style={styles.inputLabel}>User Name</Text>
           <TextInput
             style={styles.textInput}
@@ -141,7 +137,9 @@ const styles = StyleSheet.create({
     width: 300,
     fontSize: 25,
     color: "black",
-    fontWeight: "400"
+    fontWeight: "400",
+    opacity: 0.7
+
   },
     // mainContainer: {
     //   backgroundColor: "#8ddb39",
@@ -165,8 +163,8 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "transparent",
     backgroundColor: "transparent",
-    paddingBottom: 20,
-    paddingTop: 5,
+    paddingBottom: 0,
+    paddingTop: 10,
     margin: 5
   },
   signUpButtonText: {
@@ -177,21 +175,5 @@ const styles = StyleSheet.create({
     textTransform: "uppercase",
     fontWeight: "300",
     fontFamily: 'helvetica'
-  },
-  titleContainer: {
-    alignItems: 'center',
-    fontFamily: 'helvetica'
-  },
-  title: {
-    fontSize: 16,
-    letterSpacing: 4,
-    fontWeight: '600'
-  },
-  titleLineBreak: {
-    marginTop: 20,
-    marginBottom: 40,
-    borderBottomColor: 'black',
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    width: '100%'
   },
 });
