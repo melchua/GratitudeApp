@@ -1,70 +1,145 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
+  Button,
   Image,
   Platform,
-  SafeAreaView,
   StyleSheet,
   Text,
-  TouchableOpacity,
-  View
-} from "react-native";
-import { inject, observer } from "mobx-react";
+  View,
+  Dimensions,
+  ScrollView,
+  TextInput,
+  AppRegistry
+} from 'react-native';
+import moment from 'moment';
 
-class CreateTodoScreen extends Component {
+export default class ListScreen extends Component {
+  state = { text: '' };
   render() {
     return (
-      <SafeAreaView style={styles.homescreenContainer}>
-        <View style={styles.navbarContainer}>
-          <Text style={styles.cancelNavbarText}>Cancel</Text>
+      <View style={styles.layout}>
+        <ScrollView>
+          <View style={styles.homescreenContainer}>
+            <View style={styles.titleContainer}>
+              <Text style={styles.title}>NEW GRATITUDE</Text>
+            </View>
+            <View style={styles.gratitudeContainer}>
+              <View style={styles.titleLineBreak} />
+              <View>
+                <Text style={styles.gratitudeDate}>
+                  {moment(new Date()).format('dddd, MMM Do')}
+                </Text>
+              </View>
+              <View style={styles.gratitudeContainer}>
+                <Text style={styles.describe}>
+                  In 30 characters or less, describe what you are grateful for
+                  today.
+                </Text>
+              </View>
+              <TextInput
+                {...this.props}
+                style={styles.input}
+                onChangeText={text => this.setState({ text })}
+                value={this.state.text}
+                placeholder='Today I am grateful for...'
+                multiline={true}
+              />
+            </View>
+            <View style={styles.submitContainer}>
+              <Text style={styles.submit}>SUBMIT</Text>
+            </View>
+          </View>
+        </ScrollView>
+        <View style={styles.footer}>
+          <Text style={styles.addGratitude}>+</Text>
         </View>
-        <View style={styles.todoContainer}>
-          <Text>Todo Input fields</Text>
-        </View>
-      </SafeAreaView>
+      </View>
     );
   }
 }
 
-export default inject("todoStore")(observer(CreateTodoScreen));
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  layout: {
+    flex: 1,
+    backgroundColor: '#f7f4e9'
+  },
   homescreenContainer: {
     flex: 1,
-    // justifyContent: "start",
-    // alignItems: "center"
-    marginLeft: 10
+    paddingTop: 60,
+    backgroundColor: '#f7f4e9'
   },
-  navbarContainer: {
-    flex: 1,
-    justifyContent: "center"
+  titleContainer: {
+    width: width,
+    alignItems: 'center',
+    fontFamily: 'helvetica'
   },
-  cancelNavbarText: {
-    color: "#b176ed",
-    fontSize: 18,
-    fontWeight: "600"
+  title: {
+    fontSize: 20,
+    letterSpacing: 4,
+    fontWeight: '600'
   },
-  todoContainer: {
-    flex: 12
+  gratitudeContainer: {
+    alignItems: 'center'
   },
-  inputContainer: {
-    paddingTop: 15
+  titleLineBreak: {
+    marginTop: 30,
+    marginBottom: 5,
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    width: '95%'
   },
-  inputLabel: {
-    color: "white",
-    fontSize: 16
+  gratitudeDate: {
+    color: 'grey',
+    fontFamily: 'helvetica',
+    letterSpacing: 1.5,
+    opacity: 0.8
   },
-  logoutButton: {
+  gratitudeContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '95%'
+  },
+  describe: {
+    marginTop: 20,
+    fontFamily: 'times new roman',
+    fontSize: 20,
+    textAlign: 'center',
+    opacity: 0.9,
+    backgroundColor: '#f7f4e9'
+  },
+  input: {
+    marginTop: 20,
+    height: 200,
+    width: '90%',
+    borderColor: 'black',
     borderWidth: 1,
-    borderColor: "transparent",
-    backgroundColor: "transparent",
-    padding: 15,
-    margin: 5
+    backgroundColor: 'white',
+    fontSize: 20,
+    paddingLeft: 15,
+    paddingTop: 15,
+    fontStyle: 'italic',
+    textAlign: 'justify'
   },
-  logoutButtonText: {
-    color: "#000000",
-    fontSize: 70,
-    textAlign: "center",
-    textTransform: "uppercase",
-    fontWeight: "700"
+  addGratitude: {
+    fontSize: 60
+  },
+  submitContainer: {
+    width: width,
+    alignItems: 'center',
+    fontFamily: 'helvetica'
+  },
+  submit: {
+    fontSize: 20,
+    letterSpacing: 4,
+    fontWeight: '600',
+    marginTop: 30,
+    opacity: 0.7
+  },
+  footer: {
+    bottom: 30,
+    alignSelf: 'center'
   }
 });

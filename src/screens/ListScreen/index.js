@@ -48,7 +48,7 @@ const fakeData = [
   },
   {
     date: 'Thursday, October 2',
-    gratitude: 'Docking with my homies '
+    gratitude: 'Docking with my homies'
   }
 ];
 
