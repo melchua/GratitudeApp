@@ -11,3 +11,7 @@ type Gratitude @model {
   createdOn: String!
   owner: User! @connection(name: "UserGratitudes")
 }
+
+schema {
+  query: Query
+}
