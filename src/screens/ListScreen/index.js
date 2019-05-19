@@ -9,6 +9,15 @@ import {
   Dimensions,
   ScrollView
 } from 'react-native';
+import Swipeout from 'react-native-swipeout';
+
+// Buttons
+const swipeoutBtns = [
+  {
+    text: 'Delete',
+    backgroundColor: 'red'
+  }
+];
 
 const fakeData = [
   {
@@ -62,9 +71,11 @@ export default class ListScreen extends Component {
         <View>
           <Text style={styles.gratitudeDate}>{data.date}</Text>
         </View>
-        <View style={styles.gratitudeContainer}>
-          <Text style={styles.gratitude}>{data.gratitude}</Text>
-        </View>
+        <Swipeout style={styles.swipeDelete} right={swipeoutBtns}>
+          <View style={styles.gratitudeContainer}>
+            <Text style={styles.gratitude}>{data.gratitude}</Text>
+          </View>
+        </Swipeout>
       </View>
     ));
     return (
@@ -88,6 +99,10 @@ export default class ListScreen extends Component {
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  swipeDelete: {
+    width: '100%',
+    backgroundColor: '#f7f4e9'
+  },
   layout: {
     flex: 1,
     backgroundColor: '#f7f4e9'
@@ -111,7 +126,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleLineBreak: {
-    marginTop: 30,
+    // marginTop: 30,
     marginBottom: 5,
     borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -122,6 +137,7 @@ const styles = StyleSheet.create({
     fontFamily: 'helvetica',
     letterSpacing: 1.5,
     opacity: 0.8
+    // paddingBottom: 20
   },
   gratitudeContainer: {
     alignItems: 'center',
@@ -131,7 +147,7 @@ const styles = StyleSheet.create({
   },
   gratitude: {
     marginTop: 20,
-    // width: 350,
+    marginBottom: 30,
     fontFamily: 'times new roman',
     fontSize: 20,
     fontStyle: 'italic',
@@ -143,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 60
   },
   footer: {
-    // height: 50,
     bottom: 30,
     alignSelf: 'center'
   }
