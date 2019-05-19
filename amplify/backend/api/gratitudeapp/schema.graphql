@@ -1,3 +1,7 @@
+# schema {
+#   query: Query
+# }
+
 type User @model {
   id: ID!
   email: String
@@ -12,6 +16,6 @@ type Gratitude @model {
   owner: User! @connection(name: "UserGratitudes")
 }
 
-schema {
-  query: Query
-}
+# type Query {
+#   getGratitudes: [Gratitude]
+# }

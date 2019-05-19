@@ -9,6 +9,10 @@ import {
 import { inject, observer } from "mobx-react";
 
 class HomeScreen extends Component {
+  componentDidMount() {
+    this.props.authStore.setCurrentUserId();
+  }
+
   handleLogout = () => {
     this.props.authStore.signOut();
     this.props.navigation.navigate("SignIn");

@@ -11,6 +11,12 @@ import {
 import { inject, observer } from "mobx-react";
 
 class CreateGratitudeScreen extends Component {
+  componentDidMount() {
+    this.props.gratitudeStore.addGratitude(
+      "cec073da-44c1-461f-9b8a-0d0d9b969191",
+      "I am grateful for sunny days."
+    );
+  }
   render() {
     return (
       <SafeAreaView style={styles.homescreenContainer}>
