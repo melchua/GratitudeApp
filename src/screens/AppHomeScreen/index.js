@@ -27,7 +27,7 @@ class HomeScreen extends Component {
   render() {
     return (
       <View style={styles.homescreenContainer}>
-        {/* <Image source={grasshopper} style={styles.grasshopperImage} /> */}
+        <Image source={grasshopper} style={styles.grasshopperImage} />
         <Text>This is the protected app screen</Text>
 
         <View style={styles.inputContainer}>

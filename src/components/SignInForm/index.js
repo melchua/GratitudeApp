@@ -4,7 +4,8 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
+  Image
 } from "react-native";
 import { inject, observer } from "mobx-react";
 import {
@@ -15,6 +16,7 @@ import {
   doesPasswordContainASymbol,
   doesPasswordContainCapitalLetter
 } from "../../utilities/validator";
+
 
 class SignInForm extends Component {
   state = {
@@ -81,6 +83,10 @@ class SignInForm extends Component {
     return (
       <View style={styles.mainContainer}>
         <View>
+          <View style={styles.titleContainer}>
+              <Text style={styles.title}>GRATEFUL GRASSHOPPER</Text>
+          </View>
+          <View style={styles.titleLineBreak} />
           <Text style={styles.inputLabel}>User Name</Text>
           <TextInput
             style={styles.textInput}
@@ -134,38 +140,58 @@ const styles = StyleSheet.create({
     height: 50,
     width: 300,
     fontSize: 25,
-    color: "white",
+    color: "black",
     fontWeight: "400"
   },
-  //   mainContainer: {
-  //     backgroundColor: "#8ddb39"
-  //   },
+    // mainContainer: {
+    //   backgroundColor: "#8ddb39",
+    // },
   errorContainer: {
     justifyContent: "flex-start",
     alignItems: "center"
   },
   errorText: {
-    fontStyle: "italic"
+    fontStyle: "italic",
+    opacity: 0.5
   },
   inputContainer: {
-    paddingTop: 15
+    paddingBottom: 15
   },
   inputLabel: {
-    color: "white",
+    color: "black",
     fontSize: 16
   },
   signUpButton: {
     borderWidth: 1,
     borderColor: "transparent",
     backgroundColor: "transparent",
-    padding: 15,
+    paddingBottom: 20,
+    paddingTop: 5,
     margin: 5
   },
   signUpButtonText: {
-    color: "#FFFFFF",
-    fontSize: 70,
+    color: "black",
+    fontSize: 30,
+    opacity: 0.6,
     textAlign: "center",
     textTransform: "uppercase",
-    fontWeight: "700"
-  }
+    fontWeight: "300",
+    fontFamily: 'helvetica'
+  },
+  titleContainer: {
+    alignItems: 'center',
+    fontFamily: 'helvetica'
+  },
+  title: {
+    fontSize: 16,
+    letterSpacing: 4,
+    fontWeight: '600'
+  },
+  titleLineBreak: {
+    marginTop: 20,
+    marginBottom: 40,
+    borderBottomColor: 'black',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    width: '100%'
+  },
 });

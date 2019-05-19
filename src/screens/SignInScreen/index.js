@@ -1,12 +1,17 @@
 import React, { Component } from "react";
-import { Button, Text, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Button, Text, StyleSheet, TouchableOpacity, View, Image } from "react-native";
 // import SignInAndUpForm from "../../components/SignInAndUpForm";
 import SignInForm from "../../components/SignInForm";
+import grasshopper from '../../assets/images/Small.jpg';
+
 
 export default class SignInScreen extends Component {
   render() {
     return (
       <View style={styles.container}>
+        <View style={styles.grasshopperImageContainer}>
+          <Image source={grasshopper} style={styles.grasshopperImage} />
+        </View>
         <SignInForm navigation={this.props.navigation} />
         <View style={styles.optionsContainer}>
           <Text style={styles.optionsText}>Don't have an account? </Text>
@@ -24,18 +29,31 @@ export default class SignInScreen extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "center",
+    // justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "#b176ed"
+    backgroundColor: "#fffdf3"
   },
   optionsContainer: {
     flexDirection: "row"
   },
   signUpText: {
-    fontWeight: "700",
-    fontSize: 15
+    fontWeight: "600",
+    fontSize: 15,
+    opacity: 0.5
+
   },
   optionsText: {
-    fontSize: 15
+    fontSize: 15,
+    opacity: 0.4
+  },
+  grasshopperImage: {
+    width: 100,
+    height: 100,
+    opacity: 0.8,
+  },
+  grasshopperImageContainer: {
+    width: '100%',
+    alignItems: "center",
+    padding: 25
   }
 });
