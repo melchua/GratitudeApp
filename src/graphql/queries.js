@@ -5,14 +5,15 @@ export const getUser = `query GetUser($id: ID!) {
   getUser(id: $id) {
     id
     email
-    todos {
+    gratitudes {
       items {
         id
         description
-        status
+        createdOn
       }
       nextToken
     }
+    streaks
   }
 }
 `;
@@ -25,42 +26,45 @@ export const listUsers = `query ListUsers(
     items {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
     nextToken
   }
 }
 `;
-export const getTodo = `query GetTodo($id: ID!) {
-  getTodo(id: $id) {
+export const getGratitude = `query GetGratitude($id: ID!) {
+  getGratitude(id: $id) {
     id
     description
-    status
+    createdOn
     owner {
       id
       email
-      todos {
+      gratitudes {
         nextToken
       }
+      streaks
     }
   }
 }
 `;
-export const listTodos = `query ListTodos(
-  $filter: ModelTodoFilterInput
+export const listGratitudes = `query ListGratitudes(
+  $filter: ModelGratitudeFilterInput
   $limit: Int
   $nextToken: String
 ) {
-  listTodos(filter: $filter, limit: $limit, nextToken: $nextToken) {
+  listGratitudes(filter: $filter, limit: $limit, nextToken: $nextToken) {
     items {
       id
       description
-      status
+      createdOn
       owner {
         id
         email
+        streaks
       }
     }
     nextToken

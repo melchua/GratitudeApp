@@ -1,18 +1,21 @@
+# schema {
+#   query: Query
+# }
+
 type User @model {
   id: ID!
   email: String
-  todos: [Todo] @connection(name: "UserTodos")
+  gratitudes: [Gratitude] @connection(name: "UserGratitudes")
+  streaks: Int
 }
 
-type Todo @model {
+type Gratitude @model {
   id: ID!
-  description: String
-  status: TodoStatus
-  # createdAt: new Date().toISOString()
-  owner: User! @connection(name: "UserTodos")
+  description: String!
+  createdOn: String!
+  owner: User! @connection(name: "UserGratitudes")
 }
 
-enum TodoStatus {
-  done
-  pending
-}
+# type Query {
+#   getGratitudes: [Gratitude]
+# }

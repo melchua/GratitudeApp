@@ -1,4 +1,6 @@
 import * as queries from "../../../src/graphql/queries";
+import * as customMutations from "../../../src/graphql/custom-mutations";
+
 import * as mutations from "../../../src/graphql/mutations";
 // import * as subscriptions from "../graphql/subscriptions";
 import { API, graphqlOperation } from "aws-amplify";
@@ -13,7 +15,7 @@ const createUser = async (id, email) => {
     const newUser = await API.graphql(
       graphqlOperation(mutations.createUser, { input: userDetails })
     );
-    console.warn("newUser", newUser);
+    // console.warn("newUser", newUser);
     return newUser;
   } catch (error) {
     console.warn("Error: ", error);
@@ -32,26 +34,49 @@ const getUser = async id => {
   }
 };
 
-const createTodo = async (id, description) => {
-  const todoDetails = {
-    id,
-    description
+const addGratitude = async (gratitudeOwnerId, description) => {
+  let today = new Date();
+  today = String(today);
+  const gratitudeDetails = {
+    gratitudeOwnerId,
+    description,
+    createdOn: today
   };
+
   try {
-    const newTodo = await API.graphql(
-      graphqlOperation(mutations.createTodo, { input: todoDetails })
+    const newGratitude = await API.graphql(
+      graphqlOperation(customMutations.addGratitude, {
+        input: gratitudeDetails
+      })
     );
-    console.warn("newTodo", newTodo);
-    // return newTodo;
+    return newGratitude;
   } catch (error) {
-    console.warn("Error createTodo: ", error);
+    console.warn("Error createGratitude: ", error);
+  }
+};
+
+const listGratitudes = async gratitudeOwnerId => {
+  const listDetails = {
+    gratitudeOwnerId
+  };
+
+  try {
+    const list = await API.graphql(
+      graphqlOperation(queries.listGratitudes, listDetails)
+    );
+    // console.warn("the list of grats", list);
+    return list;
+  } catch (err) {
+    console.warn(err);
+    return false;
   }
 };
 
 const UserActions = {
   createUser,
   getUser,
-  createTodo
+  addGratitude,
+  listGratitudes
 };
 
 export default UserActions;

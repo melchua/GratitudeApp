@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Button,
   Image,
@@ -10,11 +10,13 @@ import {
   ScrollView,
   TextInput,
   AppRegistry
-} from 'react-native';
-import moment from 'moment';
+} from "react-native";
+import moment from "moment";
+import { inject, observer } from "mobx-react";
 
-export default class ListScreen extends Component {
-  state = { text: '' };
+class CreateGratitudeScreen extends Component {
+  state = { text: "" };
+
   render() {
     return (
       <View style={styles.layout}>
@@ -27,7 +29,7 @@ export default class ListScreen extends Component {
               <View style={styles.titleLineBreak} />
               <View>
                 <Text style={styles.gratitudeDate}>
-                  {moment(new Date()).format('dddd, MMM Do')}
+                  {moment(new Date()).format("dddd, MMM Do")}
                 </Text>
               </View>
               <View style={styles.gratitudeContainer}>
@@ -40,7 +42,7 @@ export default class ListScreen extends Component {
                 style={styles.input}
                 onChangeText={text => this.setState({ text })}
                 value={this.state.text}
-                placeholder='Today I am grateful for...'
+                placeholder="Today I am grateful for..."
                 multiline={true}
               />
             </View>
@@ -57,88 +59,91 @@ export default class ListScreen extends Component {
   }
 }
 
-const width = Dimensions.get('window').width;
+export default inject("authStore", "gratitudeStore")(
+  observer(CreateGratitudeScreen)
+);
+const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   homescreenContainer: {
     flex: 1,
     paddingTop: 60,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   titleContainer: {
     width: width,
-    alignItems: 'center',
-    fontFamily: 'helvetica'
+    alignItems: "center",
+    fontFamily: "helvetica"
   },
   title: {
     fontSize: 20,
     letterSpacing: 4,
-    fontWeight: '600'
+    fontWeight: "600"
   },
   gratitudeContainer: {
-    alignItems: 'center'
+    alignItems: "center"
   },
   titleLineBreak: {
     marginTop: 30,
     marginBottom: 5,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    width: '95%'
+    width: "95%"
   },
   gratitudeDate: {
-    color: 'grey',
-    fontFamily: 'helvetica',
+    color: "grey",
+    fontFamily: "helvetica",
     letterSpacing: 1.5,
     opacity: 0.8
   },
   gratitudeContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: '95%'
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    width: "95%"
   },
   describe: {
     marginTop: 20,
-    fontFamily: 'times new roman',
+    fontFamily: "times new roman",
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     opacity: 0.9,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   input: {
     marginTop: 20,
     height: 200,
-    width: '90%',
-    borderColor: 'black',
+    width: "90%",
+    borderColor: "black",
     borderWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     fontSize: 20,
     paddingLeft: 15,
     paddingTop: 15,
-    fontStyle: 'italic',
-    textAlign: 'justify'
+    fontStyle: "italic",
+    textAlign: "justify"
   },
   addGratitude: {
     fontSize: 60
   },
   submitContainer: {
     width: width,
-    alignItems: 'center',
-    fontFamily: 'helvetica'
+    alignItems: "center",
+    fontFamily: "helvetica"
   },
   submit: {
     fontSize: 20,
     letterSpacing: 4,
-    fontWeight: '600',
+    fontWeight: "600",
     marginTop: 30,
     opacity: 0.7
   },
   footer: {
     bottom: 30,
-    alignSelf: 'center'
+    alignSelf: "center"
   }
 });

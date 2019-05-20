@@ -5,9 +5,11 @@ import UserApi from "../services/api/user";
 const AuthStoreModel = types
   .model("Auth", {
     isChecking: types.optional(types.boolean, false),
+    isLoadingUsernameId: types.optional(types.boolean, true),
     needsToConfirm: types.optional(types.boolean, false),
     isLoggedIn: types.optional(types.boolean, false),
-    isCheckingLoggedIn: types.optional(types.boolean, true)
+    isCheckingLoggedIn: types.optional(types.boolean, true),
+    currentAuthUserId: types.optional(types.string, "")
   })
   .actions(self => {
     return {
@@ -46,6 +48,7 @@ const AuthStoreModel = types
             UserApi.createUser(user.username, email);
           }
           // }
+
           return user;
         } catch (error) {
           console.warn("ERROR in SIGNIN: ", error);
@@ -67,8 +70,8 @@ const AuthStoreModel = types
         try {
           self.isCheckingLoggedIn = true;
           yield AuthApi.currentAuthenticatedUser();
+
           self.setLoggedIn();
-          // console.warn("loggedIn (instore): ", self.isLoggedIn);
           self.isCheckingLoggedin = false;
           return true;
         } catch (err) {
@@ -79,6 +82,16 @@ const AuthStoreModel = types
       setLoggedIn() {
         self.isLoggedIn = true;
       },
+      setCurrentUserId: flow(function*() {
+        try {
+          self.isLoadingUsernameId = true;
+          const currentUser = yield AuthApi.currentAuthenticatedUser();
+          self.currentAuthUserId = currentUser.username;
+          self.isLoadingUsernameId = false;
+        } catch (err) {
+          console.warn("CurrentUser Error: ", err);
+        }
+      }),
       setLoggedOut() {
         self.isLoggedIn = false;
       },
