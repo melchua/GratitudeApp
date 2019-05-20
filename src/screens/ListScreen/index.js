@@ -13,8 +13,8 @@ import { TouchableOpacity } from "react-native-gesture-handler";
 import { inject, observer } from "mobx-react";
 
 class ListScreen extends Component {
-  componentDidMount() {
-    this.props.authStore.setCurrentUserId();
+  async componentDidMount() {
+    await this.props.authStore.setCurrentUserId();
     this.populateGratitudes();
   }
 
@@ -23,9 +23,14 @@ class ListScreen extends Component {
 
     if (isGratitudesLoading === false) {
       this.populateGratitudes();
-      // console.warn("running update");
     }
   }
+
+  handleLogout = () => {
+    this.props.authStore.signOut();
+    this.props.navigation.navigate("SignIn");
+  };
+
   populateGratitudes = () => {
     const { authStore } = this.props;
     const { gratitudeStore } = this.props;
@@ -33,7 +38,7 @@ class ListScreen extends Component {
   };
 
   render() {
-    // this.displayAuthUserId();
+    // this.handleLogout();
     const { gratitudes } = this.props.gratitudeStore;
     const { navigation } = this.props;
     const gratitudeList = gratitudes.map((data, index) => (

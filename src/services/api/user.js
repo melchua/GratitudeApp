@@ -57,12 +57,12 @@ const addGratitude = async (gratitudeOwnerId, description) => {
 
 const listGratitudes = async gratitudeOwnerId => {
   const listDetails = {
-    gratitudeOwnerId
+    id: gratitudeOwnerId
   };
 
   try {
     const list = await API.graphql(
-      graphqlOperation(queries.listGratitudes, listDetails)
+      graphqlOperation(customMutations.getGratitudes, listDetails)
     );
     // console.warn("the list of grats", list);
     return list;
