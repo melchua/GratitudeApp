@@ -7,11 +7,12 @@ import {
   Text,
   View,
   Dimensions,
-  ScrollView
+  ScrollView,
+  TouchableOpacity
 } from 'react-native';
 import Swipeout from 'react-native-swipeout';
 
-// Buttons
+// Swipeout Button
 const swipeoutBtns = [
   {
     text: 'Delete',
@@ -62,7 +63,9 @@ const fakeData = [
 ];
 
 export default class ListScreen extends Component {
-  componentDidMount() {}
+  handleOpenCreateToDo = () => {
+    this.props.navigation.navigate('CreateTodo');
+  };
   render() {
     const { navigation } = this.props;
     const gratitudes = fakeData.map((data, index) => (
@@ -89,7 +92,12 @@ export default class ListScreen extends Component {
           </View>
         </ScrollView>
         <View style={styles.footer}>
-          <Text style={styles.addGratitude}>+</Text>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => this.handleOpenCreateToDo()}
+          >
+            <Text style={styles.addGratitude}>+</Text>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -126,7 +134,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   titleLineBreak: {
-    // marginTop: 30,
     marginBottom: 5,
     borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -137,7 +144,6 @@ const styles = StyleSheet.create({
     fontFamily: 'helvetica',
     letterSpacing: 1.5,
     opacity: 0.8
-    // paddingBottom: 20
   },
   gratitudeContainer: {
     alignItems: 'center',
