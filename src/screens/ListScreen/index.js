@@ -10,69 +10,38 @@ import {
   ScrollView,
   TouchableOpacity
 } from 'react-native';
-import Swipeout from 'react-native-swipeout';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { inject, observer } from 'mobx-react';
 
-// Swipeout Button
-const swipeoutBtns = [
-  {
-    text: 'Delete',
-    backgroundColor: 'red'
+class ListScreen extends Component {
+  componentDidMount() {
+    this.props.authStore.setCurrentUserId();
+    this.populateGratitudes();
   }
-];
 
-const fakeData = [
-  {
-    date: 'Tuesday, November 30',
-    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
-  },
-  {
-    date: 'Sunday, October 12',
-    gratitude:
-      'Coding in front of the water with awesome food.  Living close to the beach'
-  },
-  {
-    date: 'Thursday, October 2',
-    gratitude: 'Docking with my homies '
-  },
-  {
-    date: 'Tuesday, November 20',
-    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
-  },
-  {
-    date: 'Sunday, October 12',
-    gratitude:
-      'Coding in front of the water with awesome food.  Living close to the beach'
-  },
-  {
-    date: 'Thursday, October 2',
-    gratitude: 'Docking with my homies '
-  },
-  {
-    date: 'Tuesday, November 20',
-    gratitude: 'Going to the beach with friends.  Beautiful BC weather'
-  },
-  {
-    date: 'Sunday, October 12',
-    gratitude:
-      'Coding in front of the water with awesome food.  Living close to the beach'
-  },
-  {
-    date: 'Thursday, October 2',
-    gratitude: 'Docking with my homies'
+  componentDidUpdate() {
+    const { isGratitudesLoading } = this.props.gratitudeStore;
+
+    if (isGratitudesLoading === false) {
+      this.populateGratitudes();
+      // console.warn("running update");
+    }
   }
-];
-
-export default class ListScreen extends Component {
-  handleOpenCreateToDo = () => {
-    this.props.navigation.navigate('CreateTodo');
+  populateGratitudes = () => {
+    const { authStore } = this.props;
+    const { gratitudeStore } = this.props;
+    gratitudeStore.loadGratitudes(authStore.currentAuthUserId);
   };
+
   render() {
+    // this.displayAuthUserId();
+    const { gratitudes } = this.props.gratitudeStore;
     const { navigation } = this.props;
-    const gratitudes = fakeData.map((data, index) => (
+    const gratitudeList = gratitudes.map((data, index) => (
       <View style={styles.gratitudeContainer} key={index}>
         <View style={styles.titleLineBreak} />
         <View>
-          <Text style={styles.gratitudeDate}>{data.date}</Text>
+          <Text style={styles.gratitudeDate}>{data.createdOn}</Text>
         </View>
         <Swipeout style={styles.swipeDelete} right={swipeoutBtns}>
           <View style={styles.gratitudeContainer}>
@@ -88,13 +57,12 @@ export default class ListScreen extends Component {
             <View style={styles.titleContainer}>
               <Text style={styles.title}>GRATITUDES</Text>
             </View>
-            {gratitudes}
+            {gratitudeList}
           </View>
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={() => this.handleOpenCreateToDo()}
+            onPress={() => navigation.navigate('CreateGratitude')}
           >
             <Text style={styles.addGratitude}>+</Text>
           </TouchableOpacity>
@@ -103,6 +71,8 @@ export default class ListScreen extends Component {
     );
   }
 }
+
+export default inject('authStore', 'gratitudeStore')(observer(ListScreen));
 
 const width = Dimensions.get('window').width;
 

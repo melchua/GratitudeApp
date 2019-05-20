@@ -9,66 +9,13 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
-  AppRegistry,
-  TouchableOpacity,
-  MapView
+  AppRegistry
 } from 'react-native';
 import moment from 'moment';
-import Geocoder from 'react-native-geocoder';
-import axios from 'axios';
-import { mapQuestKey } from '../../../keys';
+import { inject, observer } from 'mobx-react';
 
-export default class ListScreen extends Component {
-  state = {
-    text: '',
-    initialPosition: 'unknown',
-    lastPosition: 'unknown',
-    latitude: '',
-    longitude: '',
-    timestamp: ''
-  };
-
-  componentDidMount = () => {
-    // Get current position and stringify it
-    navigator.geolocation.getCurrentPosition(
-      position => {
-        const { latitude, longitude, timestamp } = position.coords;
-        this.setState({
-          latitude,
-          longitude,
-          timestamp
-        });
-      },
-      error => alert(error.message),
-      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
-    );
-
-    // Watches current Position and updates if changes
-    // navigator.geolocation.watchPosition(position => {
-    //   const lastPosition = JSON.stringify(position);
-    //   this.setState({ lastPosition });
-    // });
-  };
-
-  handleOpenList = () => {
-    this.props.navigation.navigate('List');
-  };
-
-  handleCreateGratitude = () => {
-    const { latitude, longitude } = this.state;
-    console.warn('latlong', latitude, longitude);
-
-    axios
-      .get(
-        `http://www.mapquestapi.com/geocoding/v1/reverse?key=${mapQuestKey}&location=${latitude},${longitude}&includeRoadMetadata=true&includeNearestIntersection=true`
-      )
-      .then(res =>
-        this.setState({
-          city: res.data.results[0].locations[0].adminArea5,
-          street: res.data.results[0].locations[0].street
-        })
-      );
-  };
+class CreateGratitudeScreen extends Component {
+  state = { text: '' };
 
   render() {
     const { latitude, longitude, city, street } = this.state;
@@ -87,10 +34,28 @@ export default class ListScreen extends Component {
               </Text>
             </View>
             <View style={styles.gratitudeContainer}>
-              <Text style={styles.describe}>
-                In 30 characters or less, describe what you are grateful for
-                today.
-              </Text>
+              <View style={styles.titleLineBreak} />
+              <View>
+                <Text style={styles.gratitudeDate}>
+                  {moment(new Date()).format('dddd, MMM Do')}
+                </Text>
+              </View>
+              <View style={styles.gratitudeContainer}>
+                <Text style={styles.describe}>
+                  In 30 characters or less, describe what you are grateful for
+                  today.
+                </Text>
+              </View>
+              <TextInput
+                style={styles.input}
+                onChangeText={text => this.setState({ text })}
+                value={this.state.text}
+                placeholder='Today I am grateful for...'
+                multiline={true}
+              />
+            </View>
+            <View style={styles.submitContainer}>
+              <Text style={styles.submit}>SUBMIT</Text>
             </View>
             <TextInput
               style={styles.input}
@@ -124,6 +89,9 @@ export default class ListScreen extends Component {
   }
 }
 
+export default inject('authStore', 'gratitudeStore')(
+  observer(CreateGratitudeScreen)
+);
 const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
