@@ -15,7 +15,7 @@ const createUser = async (id, email) => {
     const newUser = await API.graphql(
       graphqlOperation(mutations.createUser, { input: userDetails })
     );
-    console.warn("newUser", newUser);
+    // console.warn("newUser", newUser);
     return newUser;
   } catch (error) {
     console.warn("Error: ", error);
@@ -55,10 +55,28 @@ const addGratitude = async (gratitudeOwnerId, description) => {
   }
 };
 
+const listGratitudes = async gratitudeOwnerId => {
+  const listDetails = {
+    gratitudeOwnerId
+  };
+
+  try {
+    const list = await API.graphql(
+      graphqlOperation(queries.listGratitudes, listDetails)
+    );
+    // console.warn("the list of grats", list);
+    return list;
+  } catch (err) {
+    console.warn(err);
+    return false;
+  }
+};
+
 const UserActions = {
   createUser,
   getUser,
-  addGratitude
+  addGratitude,
+  listGratitudes
 };
 
 export default UserActions;

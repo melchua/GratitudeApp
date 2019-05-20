@@ -6,7 +6,7 @@
  * @flow
  */
 import React, { Component } from "react";
-import awsmobile from "./aws-exports";
+import awsmobile from "./aws-exports.js";
 import Amplify from "aws-amplify";
 import {
   createAppContainer,
@@ -19,6 +19,7 @@ import ConfirmScreen from "./src/screens/ConfirmScreen";
 import HomeScreen from "./src/screens/HomeScreen";
 import AppHomeScreen from "./src/screens/AppHomeScreen";
 import CreateGratitudeScreen from "./src/screens/CreateGratitudeScreen";
+import ListScreen from "./src/screens/ListScreen";
 
 import AuthLoadingScreen from "./src/screens/AuthLoadingScreen";
 
@@ -30,7 +31,7 @@ Amplify.configure(awsmobile);
 
 // configuring stacks
 const MainStack = createStackNavigator(
-  { AppHome: AppHomeScreen },
+  { AppHome: ListScreen },
   { initialRouteName: "AppHome" }
 ); // switch to the app screen when we have one ready
 
@@ -38,6 +39,7 @@ const AppStack = createStackNavigator(
   {
     Main: MainStack,
     CreateGratitude: CreateGratitudeScreen
+    // List: ListScreen
   },
   {
     mode: "modal",

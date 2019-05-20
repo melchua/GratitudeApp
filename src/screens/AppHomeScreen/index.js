@@ -22,6 +22,10 @@ class HomeScreen extends Component {
     this.props.navigation.navigate("CreateGratitude");
   };
 
+  handleOpenList = () => {
+    this.props.navigation.navigate("List");
+  };
+
   render() {
     return (
       <View style={styles.homescreenContainer}>
@@ -42,6 +46,15 @@ class HomeScreen extends Component {
             onPress={() => this.handleOpenTodoModal()}
           >
             <Text style={styles.logoutButtonText}>Create Note</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.inputContainer}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={() => this.handleOpenList()}
+          >
+            <Text style={styles.logoutButtonText}>Open List</Text>
           </TouchableOpacity>
         </View>
       </View>

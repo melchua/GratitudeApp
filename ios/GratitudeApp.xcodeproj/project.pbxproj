@@ -42,7 +42,7 @@
 		5C2F2F131042428CB64A29CF /* libRNCAsyncStorage.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C932CC9CB4142BAB70B1B7E /* libRNCAsyncStorage.a */; };
 		6B6CDBFEA9564E73B10CF568 /* libRNGestureHandler.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9E696A5F23DC4D31B2F17C93 /* libRNGestureHandler.a */; };
 		99248D68CB104ECDBDC1B0B9 /* libRNGestureHandler-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 701D9A0FEA524D998151BFE9 /* libRNGestureHandler-tvOS.a */; };
-		1F232916B0DB461C83A6D639 /* libRNAWSCognito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8BE5BE39DF994CDEABD76728 /* libRNAWSCognito.a */; };
+		CEB53BED9EAE49AA9BD7192C /* libRNAWSCognito.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DDAFB0275F2B49269DB1B9A3 /* libRNAWSCognito.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -355,8 +355,8 @@
 		B367CA605E1E458F8C7B9E7C /* RNGestureHandler.xcodeproj */ = {isa = PBXFileReference; name = "RNGestureHandler.xcodeproj"; path = "../node_modules/react-native-gesture-handler/ios/RNGestureHandler.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
 		9E696A5F23DC4D31B2F17C93 /* libRNGestureHandler.a */ = {isa = PBXFileReference; name = "libRNGestureHandler.a"; path = "libRNGestureHandler.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 		701D9A0FEA524D998151BFE9 /* libRNGestureHandler-tvOS.a */ = {isa = PBXFileReference; name = "libRNGestureHandler-tvOS.a"; path = "libRNGestureHandler-tvOS.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
-		2B1D8DF4446948C4BC7139E8 /* RNAWSCognito.xcodeproj */ = {isa = PBXFileReference; name = "RNAWSCognito.xcodeproj"; path = "../node_modules/amazon-cognito-identity-js/ios/RNAWSCognito.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
-		8BE5BE39DF994CDEABD76728 /* libRNAWSCognito.a */ = {isa = PBXFileReference; name = "libRNAWSCognito.a"; path = "libRNAWSCognito.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
+		81D4783469EF4112915659F5 /* RNAWSCognito.xcodeproj */ = {isa = PBXFileReference; name = "RNAWSCognito.xcodeproj"; path = "../node_modules/amazon-cognito-identity-js/ios/RNAWSCognito.xcodeproj"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = wrapper.pb-project; explicitFileType = undefined; includeInIndex = 0; };
+		DDAFB0275F2B49269DB1B9A3 /* libRNAWSCognito.a */ = {isa = PBXFileReference; name = "libRNAWSCognito.a"; path = "libRNAWSCognito.a"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = archive.ar; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -387,7 +387,7 @@
 				139FDEF61B0652A700C62182 /* libRCTWebSocket.a in Frameworks */,
 				5C2F2F131042428CB64A29CF /* libRNCAsyncStorage.a in Frameworks */,
 				6B6CDBFEA9564E73B10CF568 /* libRNGestureHandler.a in Frameworks */,
-				1F232916B0DB461C83A6D639 /* libRNAWSCognito.a in Frameworks */,
+				CEB53BED9EAE49AA9BD7192C /* libRNAWSCognito.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -580,7 +580,7 @@
 				139FDEE61B06529A00C62182 /* RCTWebSocket.xcodeproj */,
 				1200EE0544724E9BB56B2762 /* RNCAsyncStorage.xcodeproj */,
 				B367CA605E1E458F8C7B9E7C /* RNGestureHandler.xcodeproj */,
-				2B1D8DF4446948C4BC7139E8 /* RNAWSCognito.xcodeproj */,
+				81D4783469EF4112915659F5 /* RNAWSCognito.xcodeproj */,
 			);
 			name = Libraries;
 			sourceTree = "<group>";
