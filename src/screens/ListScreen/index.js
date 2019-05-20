@@ -7,11 +7,11 @@ import {
   Text,
   View,
   Dimensions,
-  ScrollView,
-  TouchableOpacity
+  ScrollView
 } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { inject, observer } from 'mobx-react';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import Swipeout from 'react-native-swipeout';
 
 class ListScreen extends Component {
   componentDidMount() {
@@ -24,7 +24,6 @@ class ListScreen extends Component {
 
     if (isGratitudesLoading === false) {
       this.populateGratitudes();
-      // console.warn("running update");
     }
   }
   populateGratitudes = () => {
@@ -36,7 +35,13 @@ class ListScreen extends Component {
   render() {
     // this.displayAuthUserId();
     const { gratitudes } = this.props.gratitudeStore;
+    console.warn('gratitudeslist', this.props.gratitudeStore.gratitudes);
     const { navigation } = this.props;
+    const swipeoutBtns = [
+      {
+        text: 'Delete'
+      }
+    ];
     const gratitudeList = gratitudes.map((data, index) => (
       <View style={styles.gratitudeContainer} key={index}>
         <View style={styles.titleLineBreak} />

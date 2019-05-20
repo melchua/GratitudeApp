@@ -9,16 +9,78 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
-  AppRegistry
+  AppRegistry,
+  TouchableOpacity
 } from 'react-native';
 import moment from 'moment';
 import { inject, observer } from 'mobx-react';
+import axios from 'axios';
+import { mapQuestKey } from '../../../keys.js';
 
 class CreateGratitudeScreen extends Component {
-  state = { text: '' };
+  state = {
+    text: '',
+    initialPosition: 'unknown',
+    lastPosition: 'unknown',
+    latitude: '',
+    longitude: '',
+    timestamp: ''
+  };
+
+  componentDidMount = () => {
+    // Get current position and stringify it
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude, timestamp } = position.coords;
+        this.setState({
+          latitude,
+          longitude,
+          timestamp
+        });
+      },
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
+
+    // Watches current Position and updates if changes
+    // navigator.geolocation.watchPosition(position => {
+    //   const lastPosition = JSON.stringify(position);
+    //   this.setState({ lastPosition });
+    // });
+  };
+
+  handleLogout = () => {
+    this.props.authStore.signOut();
+    this.props.navigation.navigate('SignIn');
+  };
+
+  handleOpenList = () => {
+    this.props.navigation.navigate('List');
+  };
+
+  handleCreateGratitude = () => {
+    const { latitude, longitude, text } = this.state;
+    const { addGratitude } = this.props.gratitudeStore;
+    const { currentAuthUserId } = this.props.authStore;
+    console.warn(addGratitude, currentAuthUserId, text);
+
+    axios
+      .get(
+        `http://www.mapquestapi.com/geocoding/v1/reverse?key=${mapQuestKey}&location=${latitude},${longitude}&includeRoadMetadata=true&includeNearestIntersection=true`
+      )
+      .then(res =>
+        this.setState({
+          city: res.data.results[0].locations[0].adminArea5,
+          street: res.data.results[0].locations[0].street
+        })
+      );
+
+    addGratitude(currentAuthUserId, text);
+  };
 
   render() {
     const { latitude, longitude, city, street } = this.state;
+    const { navigation } = this.props;
 
     return (
       <View style={styles.layout}>
@@ -32,27 +94,6 @@ class CreateGratitudeScreen extends Component {
               <Text style={styles.gratitudeDate}>
                 {moment(new Date()).format('dddd, MMM Do')}
               </Text>
-            </View>
-            <View style={styles.gratitudeContainer}>
-              <View style={styles.titleLineBreak} />
-              <View>
-                <Text style={styles.gratitudeDate}>
-                  {moment(new Date()).format('dddd, MMM Do')}
-                </Text>
-              </View>
-              <View style={styles.gratitudeContainer}>
-                <Text style={styles.describe}>
-                  In 30 characters or less, describe what you are grateful for
-                  today.
-                </Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                onChangeText={text => this.setState({ text })}
-                value={this.state.text}
-                placeholder='Today I am grateful for...'
-                multiline={true}
-              />
             </View>
             <View style={styles.submitContainer}>
               <Text style={styles.submit}>SUBMIT</Text>
@@ -71,17 +112,22 @@ class CreateGratitudeScreen extends Component {
           >
             <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
-          <Text>{latitude}</Text>
+          {/* <Text>{latitude}</Text>
           <Text>{longitude}</Text>
           <Text>{city}</Text>
-          <Text>{street}</Text>
+          <Text>{street}</Text> */}
+          <View style={styles.inputContainer}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => this.handleLogout()}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={() => this.handleOpenList()}
-          >
-            <Text style={styles.addGratitude}>List</Text>
+          <TouchableOpacity onPress={() => navigation.navigate('List')}>
+            <Text style={styles.addGratitude}>Home</Text>
           </TouchableOpacity>
         </View>
       </View>
