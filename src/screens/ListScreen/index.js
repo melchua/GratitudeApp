@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component } from 'react';
 import {
   Button,
   Image,
@@ -8,9 +8,11 @@ import {
   View,
   Dimensions,
   ScrollView
-} from "react-native";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { inject, observer } from "mobx-react";
+} from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { inject, observer } from 'mobx-react';
+import Swipeout from 'react-native-swipeout';
+import moment from 'moment';
 
 class ListScreen extends Component {
   async componentDidMount() {
@@ -28,7 +30,7 @@ class ListScreen extends Component {
 
   handleLogout = () => {
     this.props.authStore.signOut();
-    this.props.navigation.navigate("SignIn");
+    this.props.navigation.navigate('SignIn');
   };
 
   populateGratitudes = () => {
@@ -41,17 +43,27 @@ class ListScreen extends Component {
     // this.handleLogout();
     const { gratitudes } = this.props.gratitudeStore;
     const { navigation } = this.props;
+    const swipeoutBtns = [
+      {
+        text: 'Delete'
+      }
+    ];
     const gratitudeList = gratitudes.map((data, index) => (
       <View style={styles.gratitudeContainer} key={index}>
         <View style={styles.titleLineBreak} />
         <View>
-          <Text style={styles.gratitudeDate}>{data.createdOn}</Text>
+          <Text style={styles.gratitudeDate}>
+            {moment(data.createdOn).format('dddd, MMM Do')}
+          </Text>
         </View>
-        <View style={styles.gratitudeContainer}>
-          <Text style={styles.gratitude}>{data.description}</Text>
-        </View>
+        <Swipeout style={styles.swipeDelete} right={swipeoutBtns}>
+          <View style={styles.gratitudeContainer}>
+            <Text style={styles.gratitude}>{data.description}</Text>
+          </View>
+        </Swipeout>
       </View>
     ));
+
     return (
       <View style={styles.layout}>
         <ScrollView>
@@ -64,7 +76,7 @@ class ListScreen extends Component {
         </ScrollView>
         <View style={styles.footer}>
           <TouchableOpacity
-            onPress={() => navigation.navigate("CreateGratitude")}
+            onPress={() => navigation.navigate('CreateGratitude')}
           >
             <Text style={styles.addGratitude}>+</Text>
           </TouchableOpacity>
@@ -74,68 +86,70 @@ class ListScreen extends Component {
   }
 }
 
-export default inject("authStore", "gratitudeStore")(observer(ListScreen));
+export default inject('authStore', 'gratitudeStore')(observer(ListScreen));
 
-const width = Dimensions.get("window").width;
+const width = Dimensions.get('window').width;
 
 const styles = StyleSheet.create({
+  swipeDelete: {
+    width: '100%',
+    backgroundColor: '#f7f4e9'
+  },
   layout: {
     flex: 1,
-    backgroundColor: "#f7f4e9"
+    backgroundColor: '#f7f4e9'
   },
   homescreenContainer: {
     flex: 1,
     paddingTop: 60,
-    backgroundColor: "#f7f4e9"
+    backgroundColor: '#f7f4e9'
   },
   titleContainer: {
     width: width,
-    alignItems: "center",
-    fontFamily: "helvetica"
+    alignItems: 'center',
+    fontFamily: 'helvetica'
   },
   title: {
     fontSize: 20,
     letterSpacing: 4,
-    fontWeight: "600"
+    fontWeight: '600'
   },
   gratitudeContainer: {
-    alignItems: "center"
+    alignItems: 'center'
   },
   titleLineBreak: {
-    marginTop: 30,
     marginBottom: 5,
-    borderBottomColor: "black",
+    borderBottomColor: 'black',
     borderBottomWidth: StyleSheet.hairlineWidth,
-    width: "95%"
+    width: '95%'
   },
   gratitudeDate: {
-    color: "grey",
-    fontFamily: "helvetica",
+    color: 'grey',
+    fontFamily: 'helvetica',
     letterSpacing: 1.5,
     opacity: 0.8
   },
   gratitudeContainer: {
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    width: "95%"
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    width: '95%'
   },
   gratitude: {
     marginTop: 20,
-    // width: 350,
-    fontFamily: "times new roman",
+    marginBottom: 30,
+    fontFamily: 'times new roman',
     fontSize: 20,
-    fontStyle: "italic",
-    textAlign: "center",
+    fontStyle: 'italic',
+    textAlign: 'center',
     opacity: 0.9,
-    backgroundColor: "#f7f4e9"
+    backgroundColor: '#f7f4e9'
   },
   addGratitude: {
     fontSize: 60
   },
   footer: {
-    // height: 50,
     bottom: 30,
-    alignSelf: "center"
+    alignSelf: 'center'
   }
 });
