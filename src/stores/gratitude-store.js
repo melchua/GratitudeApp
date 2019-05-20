@@ -41,11 +41,12 @@ const GratitudeStoreModel = types
       },
       // load gratitudes into state saving them one by one
       loadGratitudes: flow(function*(ownerId) {
+        // console.warn("ownerid: ", ownerId);
         try {
           self.isGratitudesLoading = true;
 
           const response = yield UserApi.listGratitudes(ownerId);
-          const gratitudes = response.data.listGratitudes.items;
+          const gratitudes = response.data.getUser.gratitudes.items;
 
           gratitudes.forEach(gratitude => {
             const { id, description, createdOn } = gratitude;
