@@ -6,23 +6,28 @@
 
 ### Summary
 
-Our goal is to use new technologies along with React-Native to get an app on the AppStore.
+Our goal with this project is to use new technologies along with React-Native to get an app on the AppStore.
 
 ### Application Functionality
 
 The cross-platform (iOS & Android) mobile Gratitude application will allow users, when authenticated, to create Gratitudes and to perform CRUD actions (update and delete) on those Gratitudes.
 
-### User Interface Requirements
+### User Interface Requirements (MVP)
 
 - [ ] Authentication flow
 - [ ] Login/ Signup screens
 - [ ] Verification Code screen (after sign up)
 - [ ] Gratitudes List Screen - List out Gratitudes in a FlatList
 - [ ] Gratitude Creation
+
+### Stretch Requirements
+
+- [ ] Users can start/maintain a streak by submitting one or more gratitudes on adjacent days
+- [ ] User's streak is displayed in header
+- [ ] Profile Screen
 - [ ] Gratitude Edit (re-use Creation UI?)
-- [ ] Gratitude Detail Screen (Location? Notes?)
-- [ ] Profile Screen - ?
-      \*\* Try to keep UI components as simple as possible and reusable if possible.
+- [ ] Users have the option to save gratitude privately or share publically
+- [ ] All publicly shared gratitudes are pinned on a public map that all users can view
 
 ### Frontend Technology Requirements
 
@@ -30,12 +35,9 @@ The cross-platform (iOS & Android) mobile Gratitude application will allow users
   https://github.com/mobxjs/mobx-state-tree
 - Navigation: React Navigation
   https://github.com/react-navigation/react-navigation
-  \*\* Be sure to keep in mind the user’s potential un-authenticated and authenticated states and how this will affect the app’s navigation stack(s)
 - Authentication: Amplify JS client library (link up with Cognito)
   https://aws-amplify.github.io/docs/js/authentication
-  \*\* Look to keep clean separations from presentation logic and business logic in your code.
-  This shoud work for both iOS and Android.
-- UI Framework: NativeBase
+- UI Framework: NativeBase (if necessary)
   https://nativebase.io
 
 ### Backend Technology Requirements
@@ -45,4 +47,3 @@ The cross-platform (iOS & Android) mobile Gratitude application will allow users
 - [ ] Database: AWS AppSync + Dynamo database
       https://aws.amazon.com/appsync/
       https://aws.amazon.com/dynamodb/
-
