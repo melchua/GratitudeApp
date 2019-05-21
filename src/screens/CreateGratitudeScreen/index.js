@@ -24,7 +24,8 @@ class CreateGratitudeScreen extends Component {
     lastPosition: 'unknown',
     latitude: '',
     longitude: '',
-    timestamp: ''
+    timestamp: '',
+    success: ''
   };
 
   componentDidMount = () => {
@@ -74,7 +75,9 @@ class CreateGratitudeScreen extends Component {
         })
       );
 
-    addGratitude(currentAuthUserId, text);
+    addGratitude(currentAuthUserId, text).then(
+      this.setState({ success: 'You have entered in your gratitude' })
+    );
   };
 
   render() {
@@ -122,6 +125,9 @@ class CreateGratitudeScreen extends Component {
             >
               <Text style={styles.logoutButtonText}>Logout</Text>
             </TouchableOpacity>
+          </View>
+          <View>
+            <Text>{this.state.success}</Text>
           </View>
         </View>
         <View style={styles.footer}>
