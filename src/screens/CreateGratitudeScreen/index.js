@@ -16,6 +16,7 @@ import moment from "moment";
 import { inject, observer } from "mobx-react";
 import axios from "axios";
 import { mapQuestKey } from "../../../keys.js";
+import { requireNativeViewManager } from "expo-core";
 
 class CreateGratitudeScreen extends Component {
   state = {
@@ -25,7 +26,7 @@ class CreateGratitudeScreen extends Component {
     latitude: "",
     longitude: "",
     timestamp: "",
-    success: ""
+    submitted: false
   };
 
   componentDidMount = () => {
@@ -76,17 +77,30 @@ class CreateGratitudeScreen extends Component {
       );
 
     addGratitude(currentAuthUserId, text).then(
-      this.setState({ success: "You have entered in your gratitude" })
+      this.setState({ submitted: true })
     );
+    setTimeout(() => {
+      this.setState({
+        submitted: ""
+      })
+    }, 2000)
   };
 
   render() {
-    const { latitude, longitude, city, street } = this.state;
+    const { latitude, longitude, city, street, submitted } = this.state;
     const { navigation } = this.props;
 
     return (
       <View style={styles.layout}>
         <View style={styles.homescreenContainer}>
+          <View style={styles.inputContainer}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => this.handleLogout()}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
           <View style={styles.titleContainer}>
             <Text style={styles.title}>NEW GRATITUDE</Text>
           </View>
@@ -97,8 +111,11 @@ class CreateGratitudeScreen extends Component {
                 {moment(new Date()).format("dddd, MMM Do")}
               </Text>
             </View>
-            <View style={styles.submitContainer}>
-              <Text style={styles.submit}>SUBMIT</Text>
+            <View style={styles.gratitudeContainer}>
+              <Text style={styles.describe}>
+                In 30 characters or less, describe what you are grateful for
+                today.
+                </Text>
             </View>
             <TextInput
               style={styles.input}
@@ -112,27 +129,21 @@ class CreateGratitudeScreen extends Component {
             style={styles.submitContainer}
             onPress={() => this.handleCreateGratitude()}
           >
+
             <Text style={styles.submit}>SUBMIT</Text>
           </TouchableOpacity>
           {/* <Text>{latitude}</Text>
           <Text>{longitude}</Text>
           <Text>{city}</Text>
           <Text>{street}</Text> */}
-          <View style={styles.inputContainer}>
-            <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={() => this.handleLogout()}
-            >
-              <Text style={styles.logoutButtonText}>Logout</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text>{this.state.success}</Text>
+
+          <View style={styles.submittedContainer}>
+            {submitted ? <TouchableOpacity onPress={() => navigation.navigate("List")}><Image source={require("./grasshopper.png")} style={styles.submittedShown}></Image></TouchableOpacity> : null}
           </View>
         </View>
         <View style={styles.footer}>
           <TouchableOpacity onPress={() => navigation.navigate("List")}>
-            <Text style={styles.addGratitude}>Home</Text>
+            <Image source={require("./downarrow.png")} style={styles.listLink}></Image>
           </TouchableOpacity>
         </View>
       </View>
@@ -222,6 +233,26 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 30,
     opacity: 0.7
+  },
+  submittedContainer: {
+    alignItems: "center"
+  },
+  submittedShown: {
+    height: 100,
+    width: 130,
+    paddingTop: 150
+  },
+  submittedHidden: {
+
+  },
+  logoutButton: {
+    width: 50,
+    height: 20,
+    backgroundColor: "grey"
+  },
+  listLink: {
+    width: 40,
+    height: 40
   },
   footer: {
     bottom: 30,

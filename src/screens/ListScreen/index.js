@@ -107,7 +107,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: width,
     alignItems: "center",
-    fontFamily: "helvetica"
+    fontFamily: "helvetica",
+    paddingTop: 30,
+    paddingBottom: 30
   },
   title: {
     fontSize: 20,
