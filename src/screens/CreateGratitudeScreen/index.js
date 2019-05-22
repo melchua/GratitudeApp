@@ -20,7 +20,7 @@ import { mapQuestKey } from '../../../keys.js';
 class CreateGratitudeScreen extends Component {
   state = {
     text: '',
-    initialPosition: 'unknown',
+    initialPosition: "unknown",
     lastPosition: 'unknown',
     latitude: '',
     longitude: '',

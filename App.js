@@ -96,6 +96,7 @@ const AppNavContainer = createAppContainer(
       initialRouteName: 'AuthLoading'
     }
   )
+
 );
 
 export default App;
