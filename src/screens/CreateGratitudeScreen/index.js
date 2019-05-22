@@ -77,7 +77,7 @@ class CreateGratitudeScreen extends Component {
       );
 
     addGratitude(currentAuthUserId, text).then(
-      this.setState({ submitted: true })
+      this.setState({ submitted: true, text: "" })
     );
     setTimeout(() => {
       this.setState({
