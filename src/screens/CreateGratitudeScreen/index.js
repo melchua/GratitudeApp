@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   Button,
   Image,
@@ -11,21 +11,21 @@ import {
   TextInput,
   AppRegistry,
   TouchableOpacity
-} from 'react-native';
-import moment from 'moment';
-import { inject, observer } from 'mobx-react';
-import axios from 'axios';
-import { mapQuestKey } from '../../../keys.js';
+} from "react-native";
+import moment from "moment";
+import { inject, observer } from "mobx-react";
+import axios from "axios";
+import { mapQuestKey } from "../../../keys.js";
 
 class CreateGratitudeScreen extends Component {
   state = {
-    text: '',
+    text: "",
     initialPosition: "unknown",
-    lastPosition: 'unknown',
-    latitude: '',
-    longitude: '',
-    timestamp: '',
-    success: ''
+    lastPosition: "unknown",
+    latitude: "",
+    longitude: "",
+    timestamp: "",
+    success: ""
   };
 
   componentDidMount = () => {
@@ -52,11 +52,11 @@ class CreateGratitudeScreen extends Component {
 
   handleLogout = () => {
     this.props.authStore.signOut();
-    this.props.navigation.navigate('SignIn');
+    this.props.navigation.navigate("SignIn");
   };
 
   handleOpenList = () => {
-    this.props.navigation.navigate('List');
+    this.props.navigation.navigate("List");
   };
 
   handleCreateGratitude = () => {
@@ -76,7 +76,7 @@ class CreateGratitudeScreen extends Component {
       );
 
     addGratitude(currentAuthUserId, text).then(
-      this.setState({ success: 'You have entered in your gratitude' })
+      this.setState({ success: "You have entered in your gratitude" })
     );
   };
 
@@ -94,7 +94,7 @@ class CreateGratitudeScreen extends Component {
             <View style={styles.titleLineBreak} />
             <View>
               <Text style={styles.gratitudeDate}>
-                {moment(new Date()).format('dddd, MMM Do')}
+                {moment(new Date()).format("dddd, MMM Do")}
               </Text>
             </View>
             <View style={styles.submitContainer}>
@@ -104,7 +104,7 @@ class CreateGratitudeScreen extends Component {
               style={styles.input}
               onChangeText={text => this.setState({ text })}
               value={this.state.text}
-              placeholder='Today I am grateful for...'
+              placeholder="Today I am grateful for..."
               multiline={true}
             />
           </View>
@@ -131,7 +131,7 @@ class CreateGratitudeScreen extends Component {
           </View>
         </View>
         <View style={styles.footer}>
-          <TouchableOpacity onPress={() => navigation.navigate('List')}>
+          <TouchableOpacity onPress={() => navigation.navigate("List")}>
             <Text style={styles.addGratitude}>Home</Text>
           </TouchableOpacity>
         </View>
@@ -140,91 +140,91 @@ class CreateGratitudeScreen extends Component {
   }
 }
 
-export default inject('authStore', 'gratitudeStore')(
+export default inject("authStore", "gratitudeStore")(
   observer(CreateGratitudeScreen)
 );
-const width = Dimensions.get('window').width;
+const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
   layout: {
     flex: 1,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   homescreenContainer: {
     flex: 1,
     paddingTop: 60,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   titleContainer: {
     width: width,
-    alignItems: 'center',
-    fontFamily: 'helvetica'
+    alignItems: "center",
+    fontFamily: "helvetica"
   },
   title: {
     fontSize: 20,
     letterSpacing: 4,
-    fontWeight: '600'
+    fontWeight: "600"
   },
   gratitudeContainer: {
-    alignItems: 'center'
+    alignItems: "center"
   },
   titleLineBreak: {
     marginTop: 30,
     marginBottom: 5,
-    borderBottomColor: 'black',
+    borderBottomColor: "black",
     borderBottomWidth: StyleSheet.hairlineWidth,
-    width: '95%'
+    width: "95%"
   },
   gratitudeDate: {
-    color: 'grey',
-    fontFamily: 'helvetica',
+    color: "grey",
+    fontFamily: "helvetica",
     letterSpacing: 1.5,
     opacity: 0.8
   },
   gratitudeContainer: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    alignSelf: 'center',
-    width: '95%'
+    alignItems: "center",
+    justifyContent: "center",
+    alignSelf: "center",
+    width: "95%"
   },
   describe: {
     marginTop: 20,
-    fontFamily: 'times new roman',
+    fontFamily: "times new roman",
     fontSize: 20,
-    textAlign: 'center',
+    textAlign: "center",
     opacity: 0.9,
-    backgroundColor: '#f7f4e9'
+    backgroundColor: "#f7f4e9"
   },
   input: {
     marginTop: 20,
     height: 200,
-    width: '90%',
-    borderColor: 'black',
+    width: "90%",
+    borderColor: "black",
     borderWidth: 1,
-    backgroundColor: 'white',
+    backgroundColor: "white",
     fontSize: 20,
     paddingLeft: 15,
     paddingTop: 15,
-    fontStyle: 'italic',
-    textAlign: 'justify'
+    fontStyle: "italic",
+    textAlign: "justify"
   },
   addGratitude: {
     fontSize: 60
   },
   submitContainer: {
     width: width,
-    alignItems: 'center',
-    fontFamily: 'helvetica'
+    alignItems: "center",
+    fontFamily: "helvetica"
   },
   submit: {
     fontSize: 20,
     letterSpacing: 4,
-    fontWeight: '600',
+    fontWeight: "600",
     marginTop: 30,
     opacity: 0.7
   },
   footer: {
     bottom: 30,
-    alignSelf: 'center'
+    alignSelf: "center"
   }
 });
