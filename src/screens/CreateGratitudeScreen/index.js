@@ -9,50 +9,142 @@ import {
   Dimensions,
   ScrollView,
   TextInput,
-  AppRegistry
+  AppRegistry,
+  TouchableOpacity
 } from "react-native";
 import moment from "moment";
 import { inject, observer } from "mobx-react";
+import axios from "axios";
+import { mapQuestKey } from "../../../keys.js";
+import { requireNativeViewManager } from "expo-core";
 
 class CreateGratitudeScreen extends Component {
-  state = { text: "" };
+  state = {
+    text: "",
+    initialPosition: "unknown",
+    lastPosition: "unknown",
+    latitude: "",
+    longitude: "",
+    timestamp: "",
+    submitted: false
+  };
+
+  componentDidMount = () => {
+    // Get current position and stringify it
+    navigator.geolocation.getCurrentPosition(
+      position => {
+        const { latitude, longitude, timestamp } = position.coords;
+        this.setState({
+          latitude,
+          longitude,
+          timestamp
+        });
+      },
+      error => alert(error.message),
+      { enableHighAccuracy: true, timeout: 2000, maximumAge: 1000 }
+    );
+
+    // Watches current Position and updates if changes
+    // navigator.geolocation.watchPosition(position => {
+    //   const lastPosition = JSON.stringify(position);
+    //   this.setState({ lastPosition });
+    // });
+  };
+
+  handleLogout = () => {
+    this.props.authStore.signOut();
+    this.props.navigation.navigate("SignIn");
+  };
+
+  handleOpenList = () => {
+    this.props.navigation.navigate("List");
+  };
+
+  handleCreateGratitude = () => {
+    const { latitude, longitude, text } = this.state;
+    const { addGratitude } = this.props.gratitudeStore;
+    const { currentAuthUserId } = this.props.authStore;
+
+    axios
+      .get(
+        `http://www.mapquestapi.com/geocoding/v1/reverse?key=${mapQuestKey}&location=${latitude},${longitude}&includeRoadMetadata=true&includeNearestIntersection=true`
+      )
+      .then(res =>
+        this.setState({
+          city: res.data.results[0].locations[0].adminArea5,
+          street: res.data.results[0].locations[0].street
+        })
+      );
+
+    addGratitude(currentAuthUserId, text).then(
+      this.setState({ submitted: true, text: "" })
+    );
+    setTimeout(() => {
+      this.setState({
+        submitted: ""
+      })
+    }, 2000)
+  };
 
   render() {
+    const { latitude, longitude, city, street, submitted } = this.state;
+    const { navigation } = this.props;
+
     return (
       <View style={styles.layout}>
-        <ScrollView>
-          <View style={styles.homescreenContainer}>
-            <View style={styles.titleContainer}>
-              <Text style={styles.title}>NEW GRATITUDE</Text>
+        <View style={styles.homescreenContainer}>
+          <View style={styles.inputContainer}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={() => this.handleLogout()}
+            >
+              <Text style={styles.logoutButtonText}>Logout</Text>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.titleContainer}>
+            <Text style={styles.title}>NEW GRATITUDE</Text>
+          </View>
+          <View style={styles.gratitudeContainer}>
+            <View style={styles.titleLineBreak} />
+            <View>
+              <Text style={styles.gratitudeDate}>
+                {moment(new Date()).format("dddd, MMM Do")}
+              </Text>
             </View>
             <View style={styles.gratitudeContainer}>
-              <View style={styles.titleLineBreak} />
-              <View>
-                <Text style={styles.gratitudeDate}>
-                  {moment(new Date()).format("dddd, MMM Do")}
+              <Text style={styles.describe}>
+                In 30 characters or less, describe what you are grateful for
+                today.
                 </Text>
-              </View>
-              <View style={styles.gratitudeContainer}>
-                <Text style={styles.describe}>
-                  In 30 characters or less, describe what you are grateful for
-                  today.
-                </Text>
-              </View>
-              <TextInput
-                style={styles.input}
-                onChangeText={text => this.setState({ text })}
-                value={this.state.text}
-                placeholder="Today I am grateful for..."
-                multiline={true}
-              />
             </View>
-            <View style={styles.submitContainer}>
-              <Text style={styles.submit}>SUBMIT</Text>
-            </View>
+            <TextInput
+              style={styles.input}
+              onChangeText={text => this.setState({ text })}
+              value={this.state.text}
+              placeholder="Today I am grateful for..."
+              multiline={true}
+            />
           </View>
-        </ScrollView>
+          <TouchableOpacity
+            style={styles.submitContainer}
+            onPress={() => this.handleCreateGratitude()}
+          >
+
+            <Text style={styles.submit}>SUBMIT</Text>
+          </TouchableOpacity>
+          {/* <Text>{latitude}</Text>
+          <Text>{longitude}</Text>
+          <Text>{city}</Text>
+          <Text>{street}</Text> */}
+
+          <View style={styles.submittedContainer}>
+            {submitted ? <TouchableOpacity onPress={() => navigation.navigate("List")}><Image source={require("./grasshopper.png")} style={styles.submittedShown}></Image></TouchableOpacity> : null}
+          </View>
+        </View>
         <View style={styles.footer}>
-          <Text style={styles.addGratitude}>+</Text>
+          <TouchableOpacity onPress={() => navigation.navigate("List")}>
+            <Image source={require("./downarrow.png")} style={styles.listLink}></Image>
+          </TouchableOpacity>
         </View>
       </View>
     );
@@ -141,6 +233,26 @@ const styles = StyleSheet.create({
     fontWeight: "600",
     marginTop: 30,
     opacity: 0.7
+  },
+  submittedContainer: {
+    alignItems: "center"
+  },
+  submittedShown: {
+    height: 100,
+    width: 130,
+    paddingTop: 150
+  },
+  submittedHidden: {
+
+  },
+  logoutButton: {
+    width: 50,
+    height: 20,
+    backgroundColor: "grey"
+  },
+  listLink: {
+    width: 40,
+    height: 40
   },
   footer: {
     bottom: 30,

@@ -11,6 +11,8 @@ import {
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { inject, observer } from "mobx-react";
+import Swipeout from "react-native-swipeout";
+import moment from "moment";
 
 class ListScreen extends Component {
   async componentDidMount() {
@@ -41,17 +43,27 @@ class ListScreen extends Component {
     // this.handleLogout();
     const { gratitudes } = this.props.gratitudeStore;
     const { navigation } = this.props;
+    const swipeoutBtns = [
+      {
+        text: "Delete"
+      }
+    ];
     const gratitudeList = gratitudes.map((data, index) => (
       <View style={styles.gratitudeContainer} key={index}>
         <View style={styles.titleLineBreak} />
         <View>
-          <Text style={styles.gratitudeDate}>{data.createdOn}</Text>
+          <Text style={styles.gratitudeDate}>
+            {moment(data.createdOn).format("dddd, MMM Do")}
+          </Text>
         </View>
-        <View style={styles.gratitudeContainer}>
-          <Text style={styles.gratitude}>{data.description}</Text>
-        </View>
+        <Swipeout style={styles.swipeDelete} right={swipeoutBtns}>
+          <View style={styles.gratitudeContainer}>
+            <Text style={styles.gratitude}>{data.description}</Text>
+          </View>
+        </Swipeout>
       </View>
     ));
+
     return (
       <View style={styles.layout}>
         <ScrollView>
@@ -79,6 +91,10 @@ export default inject("authStore", "gratitudeStore")(observer(ListScreen));
 const width = Dimensions.get("window").width;
 
 const styles = StyleSheet.create({
+  swipeDelete: {
+    width: "100%",
+    backgroundColor: "#f7f4e9"
+  },
   layout: {
     flex: 1,
     backgroundColor: "#f7f4e9"
@@ -91,7 +107,9 @@ const styles = StyleSheet.create({
   titleContainer: {
     width: width,
     alignItems: "center",
-    fontFamily: "helvetica"
+    fontFamily: "helvetica",
+    paddingTop: 30,
+    paddingBottom: 30
   },
   title: {
     fontSize: 20,
@@ -102,7 +120,6 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   titleLineBreak: {
-    marginTop: 30,
     marginBottom: 5,
     borderBottomColor: "black",
     borderBottomWidth: StyleSheet.hairlineWidth,
@@ -122,7 +139,7 @@ const styles = StyleSheet.create({
   },
   gratitude: {
     marginTop: 20,
-    // width: 350,
+    marginBottom: 30,
     fontFamily: "times new roman",
     fontSize: 20,
     fontStyle: "italic",
@@ -134,7 +151,6 @@ const styles = StyleSheet.create({
     fontSize: 60
   },
   footer: {
-    // height: 50,
     bottom: 30,
     alignSelf: "center"
   }

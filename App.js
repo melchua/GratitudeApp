@@ -17,7 +17,6 @@ import SignUpScreen from "./src/screens/SignUpScreen";
 import SignInScreen from "./src/screens/SignInScreen";
 import ConfirmScreen from "./src/screens/ConfirmScreen";
 import HomeScreen from "./src/screens/HomeScreen";
-import AppHomeScreen from "./src/screens/AppHomeScreen";
 import CreateGratitudeScreen from "./src/screens/CreateGratitudeScreen";
 import ListScreen from "./src/screens/ListScreen";
 
@@ -38,8 +37,8 @@ const MainStack = createStackNavigator(
 const AppStack = createStackNavigator(
   {
     Main: MainStack,
-    CreateGratitude: CreateGratitudeScreen
-    // List: ListScreen
+    CreateGratitude: CreateGratitudeScreen,
+    List: ListScreen
   },
   {
     mode: "modal",
@@ -97,6 +96,7 @@ const AppNavContainer = createAppContainer(
       initialRouteName: "AuthLoading"
     }
   )
+
 );
 
 export default App;
